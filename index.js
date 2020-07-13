@@ -26,8 +26,10 @@ stream.on('data', event => {
     if(
         event.user.id.toString() === elon // Tweet is from Elon
         && !event.retweeted_status // Is an original tweet (not a retweet)
-        && event.in_reply_to_status_id // Is not a reply tweet
+        && !event.in_reply_to_status_id // Is not a reply tweet
     ) {
+        console.log(event);
+
         let tweetOptions = {};
 
         if(!event.truncated) {
@@ -37,8 +39,8 @@ stream.on('data', event => {
             let lastCharIdx = event.extended_tweet.display_text_range[1];
             tweetOptions.status = event.extended_tweet.full_text.substring(firstCharIdx, lastCharIdx).split('').reverse().join('');
         } else {
-            tweetOptions.status = event.extended_tweet.full_text.split('').reverse().join();
-        }
+            tweetOptions.status = event.extended_tweet.full_text.split('').reverse().join('');
+    }
 
         console.log('POSTING TWEET');
         console.log(tweetOptions);
