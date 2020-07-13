@@ -63,3 +63,8 @@ stream.on('data', event => {
 stream.on('error', error => {
     console.log(error);
 });
+
+stream.on('disconnect', msg => {
+    console.log(msg);
+    stream.start();
+})
